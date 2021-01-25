@@ -1,4 +1,4 @@
-import workerService, { WorkerService, WorkerServiceBuilder } from './workerService';
+import workerService, { WorkerService, workerServiceBuilder } from './workerService';
 
 // di, the motor that create each dependency is main
 // auto di, export de di to inject and the instance of the service
@@ -28,7 +28,7 @@ describe('Worker Service', () => {
 
   describe('di', () => {
     const workerRepositoryMock = { findAllWorkers: jest.fn() };
-    const workerService: WorkerService = WorkerServiceBuilder({ workerRepository: workerRepositoryMock });
+    const workerService: WorkerService = workerServiceBuilder({ workerRepository: workerRepositoryMock });
 
     beforeEach(() => {
       jest.resetAllMocks();

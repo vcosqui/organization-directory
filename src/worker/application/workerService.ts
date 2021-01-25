@@ -9,10 +9,10 @@ type WorkerServiceDependencies = {
   workerRepository: WorkerRepository;
 };
 
-export const WorkerServiceBuilder = ({ workerRepository }: WorkerServiceDependencies): WorkerService => {
+export const workerServiceBuilder = ({ workerRepository }: WorkerServiceDependencies): WorkerService => {
   const getWorkers = (): Array<Worker> => workerRepository.findAllWorkers();
   return { getWorkers };
 };
 
-export default WorkerServiceBuilder({ workerRepository });
+export default workerServiceBuilder({ workerRepository });
 // should we do it per each service exporting a builder and an instance
