@@ -1,18 +1,17 @@
 import { Request, Response } from 'express-serve-static-core';
-import workerService, { WorkerService } from './workerService';
-
-type WorkerControllerDependencies = {
-  workerService: WorkerService;
-};
+import GetWorkers from '../domain/getWorkers';
+import { Dependencies } from '../../config/projectDependencies';
 
 export interface WorkerController {
   getWorkers: (req: Request, res: Response) => void;
 }
 
-export const workerControllerBuilder = ({ workerService }: WorkerControllerDependencies): WorkerController => {
+export default ({ databaseService }: Dependencies): WorkerController => {
+  const { workerRepository } = databaseService;
+
   const getWorkers = (req: Request, res: Response) => {
     try {
-      const response = workerService.getWorkers();
+      const response = GetWorkers(workerRepository).Execute();
       res.json(response);
     } catch (e) {
       console.log(e);
@@ -21,5 +20,3 @@ export const workerControllerBuilder = ({ workerService }: WorkerControllerDepen
   };
   return { getWorkers };
 };
-
-export default workerControllerBuilder({ workerService });
